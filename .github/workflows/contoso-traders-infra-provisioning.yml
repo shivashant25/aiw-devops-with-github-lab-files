@@ -35,7 +35,7 @@ jobs:
       - name: add aks agentpool to kv access policy
         uses: azure/CLI@v1
         with:
-          inlineScript: az keyvault set-policy -n ${{ env.KV_NAME }}${{ secrets.ENVIRONMENT }} --secret-permissions get list --object-id $(az identity show --name ${{ env.AKS_CLUSTER_NAME }}-agentpool -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }}${{ secrets.ENVIRONMENT }} --query "principalId" -o tsv)
+          inlineScript: az keyvault set-policy -n ${{ env.KV_NAME }}${{ secrets.ENVIRONMENT }} --secret-permissions get list --object-id $(az identity show --name ${{ env.AKS_CLUSTER_NAME }}${{ secrets.ENVIRONMENT }}-agentpool -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }} --query "principalId" -o tsv)
       # Seed the DBs and storage accounts
       - name: seed products db
         uses: azure/sql-action@v2

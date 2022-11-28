@@ -31,11 +31,6 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.SERVICEPRINCIPAL }}
-      # Add the logged-in service principal to the key vault access policy
-      - name: add service principal to kv access policy
-        uses: azure/CLI@v1
-        with:
-          inlineScript: az keyvault set-policy -n ${{ env.KV_NAME }}${{ secrets.ENVIRONMENT }} --secret-permissions get list set --object-id $(az ad sp show --id $(az account show --query "user.name" -o tsv) --query "id" -o tsv)
       # @TODO: This next step really needs to go into the bicep provisioning script
       - name: add aks agentpool to kv access policy
         uses: azure/CLI@v1
